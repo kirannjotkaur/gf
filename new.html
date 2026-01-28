@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kiran ❤️ Sewu – Until We Meet</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: Poppins, sans-serif;
+        background: radial-gradient(circle at top, #2b0040, #000);
+        color: white;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* Floating heart cursor */
+      .cursor-heart {
+        position: fixed;
+        pointer-events: none;
+        color: #ff69b4;
+        font-size: 18px;
+        animation: fade 1s linear forwards;
+      }
+      @keyframes fade {
+        to {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+      }
+
+      .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        font-family:
+          Great Vibes,
+          cursive;
+        font-size: 65px;
+        color: #ffb6c1;
+        text-shadow: 0 0 20px #ff69b4;
+      }
+
+      .subtitle {
+        opacity: 0.8;
+        margin-top: 10px;
+      }
+
+      .countdown {
+        display: flex;
+        gap: 15px;
+        margin-top: 40px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .box {
+        background: rgba(255, 255, 255, 0.08);
+        padding: 15px 25px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px #ff69b4;
+      }
+      .box span {
+        font-size: 32px;
+        color: #ffb6c1;
+        font-weight: bold;
+      }
+
+      .section {
+        padding: 70px 20px;
+        text-align: center;
+      }
+
+      .timeline {
+        max-width: 600px;
+        margin: auto;
+      }
+      .timeline div {
+        background: rgba(255, 255, 255, 0.08);
+        margin: 15px;
+        padding: 15px;
+        border-radius: 10px;
+      }
+
+      /* Buttons */
+      button {
+        padding: 10px 22px;
+        border: none;
+        border-radius: 20px;
+        background: #ff69b4;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 0 15px #ff69b4;
+      }
+      button:hover {
+        background: #ff1493;
+      }
+
+      input {
+        padding: 8px;
+        border-radius: 8px;
+        border: none;
+        text-align: center;
+      }
+
+      /* Hug Counter */
+      .hugCount {
+        font-size: 22px;
+        margin-top: 15px;
+        color: #ffb6c1;
+      }
+
+      /* Fireworks Canvas */
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+
+      /* Floating background hearts */
+      .bgHeart {
+        position: fixed;
+        color: #ff69b4;
+        animation: floatUp 6s linear infinite;
+      }
+      @keyframes floatUp {
+        from {
+          transform: translateY(100vh);
+        }
+        to {
+          transform: translateY(-10vh);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- LOCK SCREEN -->
+    <div
+      id="lockScreen"
+      style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle, #2b0040, #000);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        z-index: 9999;
+        color: white;
+        font-family: Poppins, sans-serif;
+      ">
+      <h1
+        style="
+          font-family:
+            Great Vibes,
+            cursive;
+          font-size: 60px;
+          color: #ffb6c1;
+        ">
+        Private Love Vault 🔐
+      </h1>
+
+      <p>Enter password to enter our world 💖</p>
+
+      <input
+        type="password"
+        id="mainPass"
+        placeholder="Enter Password"
+        style="
+          padding: 10px;
+          border-radius: 8px;
+          border: none;
+          text-align: center;
+          margin-top: 10px;
+        " />
+
+      <br /><br />
+
+      <button onclick="unlockSite()">Unlock ❤️</button>
+
+      <p id="lockMsg" style="color: pink; margin-top: 10px"></p>
+    </div>
+
+    <canvas id="fireworks"></canvas>
+
+    <!-- HERO -->
+    <div class="hero" id="hero">
+      <h1>Kiran ❤️ Sewu</h1>
+      <p class="subtitle">Every second brings us closer to our second meet</p>
+
+      <div class="countdown">
+        <div class="box"><span id="days">00</span><br />Days</div>
+        <div class="box"><span id="hours">00</span><br />Hours</div>
+        <div class="box"><span id="minutes">00</span><br />Minutes</div>
+        <div class="box"><span id="seconds">00</span><br />Seconds</div>
+      </div>
+    </div>
+
+    <!-- STORY -->
+    <div class="section">
+      <h2>Our Story 💞</h2>
+      <div class="timeline">
+        <div>✨ First Meet – Hearts connected</div>
+        <div>📱 Long Distance & Endless Calls</div>
+        <div>💌 Two Years of Love</div>
+        <div>💍 31 January – Second Meet</div>
+      </div>
+    </div>
+
+    <!-- MESSAGE -->
+    <div class="section">
+      <h2>Message For You 💖</h2>
+      <p id="typing"></p>
+    </div>
+
+    <!-- SECRET UNLOCK SECTION -->
+    <div class="section">
+      <h2>Unlock Our Secret World 🔐</h2>
+      <p>Enter our special password to unlock surprises 💖</p>
+
+      <input type="password" id="pass" placeholder="Enter password" />
+      <button onclick="checkPass()">Unlock</button>
+
+      <div id="unlockArea" style="display: none; margin-top: 30px">
+        <h3>💌 Secret Love Letter</h3>
+        <p>
+          My Sewu ❤️ <br />
+          Every mile between us is just proof that true love never needs
+          distance to survive. I’m counting every second until I hug you again.
+          — Yours forever, Kiran 💖
+        </p>
+
+        <h3>💖 Why I Love You</h3>
+        <ul style="list-style: none; padding: 0">
+          <li>🌸 Your smile heals my heart</li>
+          <li>🌙 You stay even in distance</li>
+          <li>💞 You understand my soul</li>
+          <li>✨ You are my forever</li>
+        </ul>
+
+        <h3>🎁 Final Surprise</h3>
+        <button onclick="finalSurprise()">Click Me 💝</button>
+        <p id="finalText"></p>
+      </div>
+
+      <p id="wrongPass" style="color: pink"></p>
+    </div>
+
+    <!-- HUG COUNTER -->
+    <div class="section">
+      <h2>Send a Hug 🤗</h2>
+      <button onclick="sendHug()">Send Hug</button>
+      <div class="hugCount">Total Hugs: <span id="hugNum">0</span></div>
+    </div>
+
+    <script>
+      // Countdown
+      const targetDate = new Date("Jan 31, 2026 00:00:00").getTime();
+      const hero = document.getElementById("hero");
+
+      setInterval(() => {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+          hero.innerHTML = "<h1>It's Today! 💍</h1><p>Kiran meets Sewu ❤️</p>";
+          startFireworks();
+          return;
+        }
+
+        days.innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
+        hours.innerText = Math.floor(
+          (diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+        );
+        minutes.innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        seconds.innerText = Math.floor((diff % (1000 * 60)) / 1000);
+      }, 1000);
+
+      // Typing
+      const text =
+        "No distance can stop two hearts that are meant to meet again 💖";
+      let i = 0;
+      (function type() {
+        if (i < text.length) {
+          typing.innerHTML += text.charAt(i++);
+          setTimeout(type, 50);
+        }
+      })();
+
+      // Unlock section
+      function checkPass() {
+        if (pass.value === "sewu") {
+          unlockArea.style.display = "block";
+          wrongPass.innerHTML = "";
+        } else {
+          wrongPass.innerHTML = "Wrong password 💔 Try again";
+          unlockArea.style.display = "none";
+        }
+      }
+
+      function finalSurprise() {
+        finalText.innerHTML =
+          "💍 One day this countdown will turn into our wedding countdown 😉❤️";
+      }
+
+      // Hug counter
+      let hugs = 0;
+      function sendHug() {
+        hugs++;
+        hugNum.innerText = hugs;
+      }
+
+      // Floating hearts background
+      function createBgHeart() {
+        const h = document.createElement("div");
+        h.className = "bgHeart";
+        h.innerHTML = "❤️";
+        h.style.left = Math.random() * 100 + "vw";
+        h.style.fontSize = 10 + Math.random() * 20 + "px";
+        h.style.animationDuration = 4 + Math.random() * 6 + "s";
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), 8000);
+      }
+      setInterval(createBgHeart, 500);
+
+      // Cursor heart trail
+      document.addEventListener("mousemove", (e) => {
+        const heart = document.createElement("div");
+        heart.className = "cursor-heart";
+        heart.style.left = e.clientX + "px";
+        heart.style.top = e.clientY + "px";
+        heart.innerHTML = "💖";
+        document.body.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      });
+
+      // Fireworks
+      function startFireworks() {
+        const canvas = document.getElementById("fireworks");
+        const ctx = canvas.getContext("2d");
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+        let particles = [];
+
+        function createFirework() {
+          for (let i = 0; i < 80; i++) {
+            particles.push({
+              x: innerWidth / 2,
+              y: innerHeight / 2,
+              vx: (Math.random() - 0.5) * 6,
+              vy: (Math.random() - 0.5) * 6,
+              life: 100,
+            });
+          }
+        }
+
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach((p, i) => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life--;
+            ctx.fillStyle = "#ff69b4";
+            ctx.fillRect(p.x, p.y, 3, 3);
+            if (p.life <= 0) particles.splice(i, 1);
+          });
+          requestAnimationFrame(animate);
+        }
+        createFirework();
+        animate();
+      }
+      function unlockSite() {
+        const correctPassword = "Sk@@..11";
+        if (document.getElementById("mainPass").value === correctPassword) {
+          document.getElementById("lockScreen").style.display = "none";
+          document.getElementById("siteContent").style.display = "block";
+        } else {
+          document.getElementById("lockMsg").innerText = "Wrong Password 💔";
+        }
+      }
+    </script>
+  </body>
+</html>
